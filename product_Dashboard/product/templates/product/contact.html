@@ -1,0 +1,116 @@
+{% extends 'product/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+      body {
+        background-color: #aef9d3;
+        background: url("{% static 'images/Main Background.jpg' %}") no-repeat center center fixed;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .contact-container {
+        max-width: 500px;  /* ✅ Made form smaller */
+        background: rgb(3, 30, 22);
+        margin: 60px auto;
+        padding: 25px 30px; /* ✅ Reduced padding */
+        border-radius: 12px;
+        box-shadow: 0px 4px 18px rgba(0,0,0,0.25);
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .contact-container h2 {
+        text-align: center;
+        margin-bottom: 15px;
+        font-weight: 700;
+        color: #b9f4c2;
+    }
+
+    .input-box {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 12px; /* less spacing */
+    }
+
+    .input-box label {
+        margin-bottom: 5px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #b9f4c2;
+    }
+
+    .input-box input, .input-box textarea {
+        padding: 10px;
+        border: 1px solid #00a088;
+        border-radius: 6px;
+        outline: none;
+        font-size: 14px;
+    }
+
+    .input-box textarea {
+        resize: none;
+        height: 100px; /* smaller */
+    }
+
+    /* 🌈 Colorful Button Matching Navbar */
+    .contact-btn {
+        display: block;
+        margin: 18px auto 0 auto;
+        padding: 8px 24px;  /* smaller button */
+        background: linear-gradient(135deg, #66d27f, #14857a);
+        border: none;
+        border-radius: 50px;
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.4s ease-in-out;
+        letter-spacing: 0.5px;
+    }
+
+    .contact-btn:hover {
+        background: linear-gradient(135deg, #14857a, #0b574f);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(20, 133, 122, 0.5);
+    }
+</style>
+
+<div class="contact-container">
+    <h2>Contact Us</h2>
+
+    {% if messages %}
+        {% for msg in messages %}
+            <p style="color:green; text-align:center; margin-bottom:5px;">{{ msg }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <div class="input-box">
+            <label>Your Name</label>
+            <input type="text" name="name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="input-box">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="input-box">
+            <label>Subject</label>
+            <input type="text" name="subject" placeholder="Enter subject" required>
+        </div>
+
+        <div class="input-box">
+            <label>Message</label>
+            <textarea name="message" placeholder="Write your message..." required></textarea>
+        </div>
+
+        <button class="contact-btn" type="submit">Send Message</button>
+    </form>
+</div>
+
+{% endblock %}

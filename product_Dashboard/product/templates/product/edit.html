@@ -1,0 +1,113 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    body {
+        background: url("{% static 'images/Main Background.jpg' %}") no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .edit-container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: rgba(255, 255, 255, 0.88);
+        padding: 35px;
+        border-radius: 16px;
+        box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(6px);
+        animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .edit-container h2 {
+        text-align: center;
+        font-weight: 600;
+        color: #32ab8b;
+        margin-bottom: 25px;
+    }
+
+    .form-control,
+    .form-select,
+    textarea,
+    input[type="text"],
+    input[type="number"] {
+        border-radius: 10px !important;
+        border: 1px solid #cfcfcf;
+        padding: 10px;
+        font-size: 15px;
+        transition: 0.2s;
+    }
+
+    .form-control:focus,
+    textarea:focus,
+    .form-select:focus {
+        border-color: #32ab8b;
+        box-shadow: 0 0 6px rgba(50, 171, 139, 0.4);
+    }
+
+    textarea.description-box {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .btn-save {
+        width: 100%;
+        padding: 10px;
+        background: #32ab8b;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 17px;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+
+    .btn-save:hover {
+        background: #279e7d;
+        transform: translateY(-2px);
+    }
+
+</style>
+
+<div class="edit-container">
+    <h2>🛒 Edit Product</h2>
+
+    <form action="{% url 'add' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label class="mt-2">Product ID</label>
+        <input type="text" class="form-control" name="pid" value="{{obj.pid}}" readonly style="background:#eee; cursor: not-allowed;">
+
+        <label class="mt-3">Product Name</label>
+        <textarea class="form-control" maxlength="202" name="pname">{{obj.pname}}</textarea>
+
+        <label class="mt-3">Price</label>
+        <input type="number" class="form-control" name="price" value="{{obj.price}}">
+
+        <label class="mt-3">Description</label>
+        <textarea class="form-control description-box" name="description">{{obj.description}}</textarea>
+
+        <label class="mt-3">Product Image</label>
+        <input type="file" class="form-control" name="pimage">
+
+        <label class="mt-3">Category</label>
+        <select class="form-select" name="category">
+            <option value="{{obj.category}}" selected>{{obj.category}}</option>
+            <option value="electronics">Electronics</option>
+            <option value="clothing">Fashion</option>
+            <option value="car">Car and Motorbike</option>
+            <option value="grocery">Home & Kitchen</option>
+            <option value="other">Others</option>
+        </select>
+
+        <button type="submit" class="btn-save mt-4">💾 Save Changes</button>
+    </form>
+</div>
+
+{% endblock %}

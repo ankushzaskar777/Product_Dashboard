@@ -1,0 +1,60 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .search-container {
+        max-width: 900px;
+        margin: 40px auto;
+    }
+    .product-card {
+        border-radius: 12px;
+        padding: 15px;
+        background: #ffffff;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        transition: 0.3s;
+        border: none;
+    }
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .product-img {
+        width: 100%;
+        border-radius: 10px;
+        height: 200px;
+        object-fit: cover;
+    }
+    .title {
+        font-weight: 600;
+        color: #32ab8b;
+    }
+</style>
+
+{% extends 'product/base.html' %}
+{% block content %}
+
+<div class="search-container">
+    <h2 class="text-center mb-4 title">Search Results for "{{ query }}"</h2>
+
+
+    {% if products %}
+    <div class="row">
+        {% for p in products %}
+        <div class="col-md-4 mb-4">
+            <div class="product-card">
+                <img src="{{ p.pimage.url }}" class="product-img" alt="">
+                <h5 class="mt-2">{{ p.pname }}</h5>
+                <p><b>Price:</b> ₹{{ p.price }}</p>
+                <p><b>Category:</b> {{ p.category }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% else %}
+        <h4 class="text-center text-danger">No Products Found 😔</h4>
+    {% endif %}
+</div>
+
+{% endblock %}
